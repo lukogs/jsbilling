@@ -1,0 +1,23 @@
+{
+  "breakfast": {
+    "Tea": 10,
+    "Black Tea": 10,
+    "Coffee": 10,
+    "Black Coffee": 10,
+    "Puttu": 10,
+    "Appam": 10,
+    "Parotta": 15,
+    "Poola": 30,
+    "Vegetable Curry": 35,
+    "Fish Curry": 35,
+    "Egg Roast": 35,
+    "Parts": 40
+  },
+  "lunch": {
+    "Meals": 50,
+    "Fish 1": 40,
+    "Fish 2": 50,
+    "Fish 3": 60,
+    "Fish 4": 50
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "breakfast": [
+    { "name": "Tea", "price": 10, "image": "https://images.news18.com/ibnlive/uploads/2021/03/1614664667_untitled-design-3-825x510.jpg" },
+    { "name": "Black Tea", "price": 10, "image": "https://png.pngtree.com/png-clipart/20230816/ourmid/pngtree-black-tea-or-sulaimani-png-image_9183716.png" },
+    { "name": "Coffee", "price": 10, "image": "https://www.thecaffeinebaar.com/cdn/shop/articles/Filter_1500x.jpg?v=1636717220" },
+    { "name": "Black Coffee", "price": 10, "image": "https://m.media-amazon.com/images/I/61yF9-vVCaL.jpg" },
+    { "name": "Puttu", "price": 10, "image": "https://vaya.in/recipes/wp-content/uploads/2019/01/Rice-Puttu.jpg" },
+    { "name": "Appam", "price": 10, "image": "https://kkfoodproducts.com/cdn/shop/articles/palappam.jpg?v=1740691818&width=1103" },
+    { "name": "Parotta", "price": 15, "image": "https://moonrice.net/wp-content/uploads/2022/01/ButteryFlakyMalabarParottaSquare-500x500.jpg" },
+    { "name": "Poola", "price": 30, "image": "https://i.ytimg.com/vi/fRw8h48UY2Y/hqdefault.jpg" },
+    { "name": "Vegetable Curry", "price": 35, "image": "https://myheartbeets.com/wp-content/uploads/2017/10/brown-chickpeas-indian-curry-instant-pot-500x500.jpg" },
+    { "name": "Fish Curry", "price": 35, "image": "https://somethingiscookingdotcom.files.wordpress.com/2015/06/ayala-fish-curry.jpg" },
+    { "name": "Egg Roast", "price": 35, "image": "https://myheartbeets.com/wp-content/uploads/2018/04/nadan-mutta-egg-roast-pressure-cooker.jpg" },
+    { "name": "Parts", "price": 40, "image": "https://i.ytimg.com/vi/Dy2GpHaHOOE/sddefault.jpg" }
+  ],
+  "lunch": [
+    { "name": "Meals", "price": 50, "image": "https://content3.jdmagicbox.com/v2/comp/ernakulam/k1/0484px484.x484.220701204924.i3k1/catalogue/sree-badhra-nadan-bakshanashala-pattimattom-ernakulam-restaurants-TqbKpr2AWw.jpg" },
+    { "name": "Fish 1", "price": 40, "image": "https://5.imimg.com/data5/OI/NA/GLADMIN-54787984/mackerel-large-ayala-fish-500x500.png" },
+    { "name": "Fish 2", "price": 50, "image": "https://qph.cf2.quoracdn.net/main-qimg-6839e0a44152740b67ed089127e3df8a-lq" },
+    { "name": "Fish 3", "price": 60, "image": "https://5.imimg.com/data5/QF/HO/MY-8317209/mathi-fish-500x500.jpg" },
+    { "name": "Fish 4", "price": 50, "image": "https://samudrafresh.com/wp-content/uploads/2019/09/neymeen.png" }
+  ]
+}

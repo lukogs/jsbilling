@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Stall Billing</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background-color: #f8f9fa; font-family: "Arial", sans-serif; }
+    .menu-item { border: 1px solid #ddd; border-radius: 10px; text-align: center; padding: 10px; background: white; }
+    .menu-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; }
+    .menu-item h6 { margin: 10px 0 5px; font-size: 1rem; }
+    .quantity-controls button { width: 30px; height: 30px; line-height: 15px; }
+
+    #billSection { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+
+    /* 🧾 Thermal printer styling */
+    @media print {
+      body * { visibility: hidden; }
+      #billPrintArea, #billPrintArea * { visibility: visible; }
+      #billPrintArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 58mm; /* suitable for 58mm roll; change to 80mm if needed */
+        font-size: 12px;
+        font-family: monospace;
+      }
+      .list-group-item {
+        border: none;
+        padding: 2px 0;
+      }
+      .print-header, .print-footer {
+        text-align: center;
+        border-bottom: 1px dashed #000;
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+      }
+      .print-footer {
+        border-top: 1px dashed #000;
+        border-bottom: none;
+        margin-top: 6px;
+        padding-top: 4px;
+      }
+      button, .form-check, .nav, .tab-content, .tab-pane, h3 {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="container py-4">
+
+  <h3 class="text-center mb-4">Food Stall Billing</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-3" id="menuTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="breakfast-tab" data-bs-toggle="tab" data-bs-target="#breakfast" type="button" role="tab">Breakfast</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="lunch-tab" data-bs-toggle="tab" data-bs-target="#lunch" type="button" role="tab">Lunch</button>
+    </li>
+  </ul>
+
+  <div class="row">
+    <!-- Menu Section -->
+    <div class="col-lg-8 tab-content" data-bs-spy="scroll" id="menuTabContent">
+      <div class="tab-pane fade show active" id="breakfast" role="tabpanel">
+        <div class="row" id="breakfastMenu"></div>
+      </div>
+      <div class="tab-pane fade" id="lunch" role="tabpanel">
+        <div class="row" id="lunchMenu"></div>
+      </div>
+    </div>
+
+    <!-- Bill Section -->
+    <div class="col-lg-4 h-100" id="billSection">
+      <div id="billPrintArea">
+        <div class="print-header">
+          <h6><strong>Masters Food Stall</strong></h6>
+          <div id="billDate"></div>
+        </div>
+
+        <ul class="list-group mb-2" id="billList"></ul>
+
+        <div class="d-flex justify-content-between fs-6">
+          <strong>Total:</strong>
+          <span id="totalAmount" class="h3">₹0</span>
+        </div>
+
+        <div class="form-check mt-2 mb-2">
+          <input class="form-check-input" type="checkbox" id="addParcel">
+          <label class="form-check-label" for="addParcel">Add Parcel (₹5)</label>
+        </div>
+
+        <div class="print-footer">
+          <p>Thank you! Visit Again 🙏</p>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success" id="printBill">🖨️ Print Bill</button>
+        <button class="btn btn-danger" id="clearBill">🧹 Clear Bill</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const parcelCharge = 5;
+    let menuData = {};
+    let bill = {};
+
+    // Load menu
+    fetch('./menu.json')
+      .then(res => res.json())
+      .then(data => {
+        menuData = data;
+        renderMenu('breakfast', data.breakfast);
+        renderMenu('lunch', data.lunch);
+      })
+      .catch(err => console.error("Error loading menu.json", err));
+
+    function renderMenu(category, items) {
+      const menuContainer = document.getElementById(category + 'Menu');
+      menuContainer.innerHTML = '';
+      Object.entries(items).forEach(([name, info]) => {
+        const div = document.createElement('div');
+        div.className = 'col-md-4 mb-3';
+        div.innerHTML = `
+          <div class="menu-item">
+            <img src="${info.image}" alt="${name}">
+            <h6>${name}</h6>
+            <p>₹${info.price}</p>
+            <div class="quantity-controls d-flex justify-content-center align-items-center">
+              <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('${name}', ${info.price}, -1)">−</button>
+              <span id="qty-${name.replace(/\s+/g, '')}">0</span>
+              <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('${name}', ${info.price}, 1)">+</button>
+            </div>
+          </div>`;
+        menuContainer.appendChild(div);
+      });
+    }
+
+    function updateBill(item, price, change) {
+      if (!bill[item]) bill[item] = { qty: 0, price };
+      bill[item].qty += change;
+      if (bill[item].qty <= 0) delete bill[item];
+      document.getElementById(`qty-${item.replace(/\s+/g, '')}`).textContent = bill[item]?.qty || 0;
+      renderBill();
+    }
+
+    function renderBill() {
+      const billList = document.getElementById('billList');
+      billList.innerHTML = '';
+      let total = 0;
+
+      Object.entries(bill).forEach(([item, data]) => {
+        const amount = data.qty * data.price;
+        total += amount;
+        billList.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${item} x ${data.qty}
+            <span>₹${amount}</span>
+          </li>`;
+      });
+
+      const parcelCheckbox = document.getElementById('addParcel');
+      if (parcelCheckbox.checked && Object.keys(bill).length > 0) {
+        total += parcelCharge;
+        billList.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between">
+            <strong>Parcel</strong><span>₹${parcelCharge}</span>
+          </li>`;
+      }
+
+      document.getElementById('totalAmount').textContent = '₹' + total;
+      document.getElementById('billDate').textContent = new Date().toLocaleString();
+    }
+
+    document.getElementById('addParcel').addEventListener('change', renderBill);
+
+    document.getElementById('clearBill').addEventListener('click', () => {
+      bill = {};
+      document.querySelectorAll('[id^="qty-"]').forEach(q => q.textContent = 0);
+      renderBill();
+    });
+
+    document.getElementById('printBill').addEventListener('click', () => {
+      renderBill();
+      window.print();
+    });
+  </script>
+</body>
+</html>

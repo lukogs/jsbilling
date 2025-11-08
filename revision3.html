@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Stall Billing</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .card {
+      transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .tab-content {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid py-4">
+    <h2 class="text-center mb-4">Food Stall Billing System</h2>
+
+    <ul class="nav nav-tabs justify-content-center" id="menuTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="breakfast-tab" data-bs-toggle="tab" href="#breakfast" role="tab">Breakfast</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="lunch-tab" data-bs-toggle="tab" href="#lunch" role="tab">Lunch</a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-4 row">
+      <!-- Left side: Menu -->
+      <div class="col-lg-8 tab-pane fade show active" id="breakfast" role="tabpanel">
+        <div class="row" id="breakfastMenu"></div>
+      </div>
+
+      <div class="col-lg-8 tab-pane fade" id="lunch" role="tabpanel">
+        <div class="row" id="lunchMenu"></div>
+      </div>
+
+      <!-- Right side: Bill -->
+      <div class="col-lg-4">
+          <button class="btn btn-secondary" id="reloadMenu">Reload Menu</button>
+
+        <h4 class="mb-3 text-center">Bill</h4>
+        <div class="card p-2">
+            <ul id="billList" class="list-group mb-3"></ul>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="addParcel">
+                <label class="form-check-label" for="addParcel">
+                    Add Parcel (₹5)
+                </label>
+            </div>
+            
+            <div class="d-flex align-items-center justify-content-between bg-warning">
+                <div class="d-flex justify-content-between fs-5">
+                    <strong>Total:</strong>
+                    <span id="totalAmount">₹0</span>
+                </div>
+                <div>
+
+                    <button class="btn btn-danger" onclick="clearBill()">Clear Bill</button>
+                    <button class="btn btn-success" onclick="printBill()">Print Bill</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  let menus = {};
+  let bill = {};
+  const parcelCharge = 5;
+
+  // Load menu JSON
+  function loadMenu() {
+    fetch('./menu.json')
+      .then(response => response.json())
+      .then(data => {
+        menus = data;
+        renderMenus();
+      })
+      .catch(err => console.error("Error loading menu.json:", err));
+  }
+
+  // Render menu cards
+  function renderMenus() {
+    ['breakfast', 'lunch'].forEach(type => {
+      const container = document.getElementById(type + 'Menu');
+      container.innerHTML = '';
+      menus[type].forEach(item => {
+        container.innerHTML += `
+            <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm p-2 h-100">
+                <img src="${item.image}" class="card-img-top mb-2" alt="${item.name}">
+                <div class="card-body p-2">
+                <h6 class="card-title">${item.name}</h6>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateItem('${item.name}', ${item.price}, -1)">-</button>
+                    <span id="qty-${item.name.replace(/\s+/g, '')}">0</span>
+                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="updateItem('${item.name}', ${item.price}, 1)">+</button>
+                </div>
+                <p class="small text-muted mt-2 mb-0">₹${item.price}</p>
+                </div>
+            </div>
+            </div>`;
+        });
+
+    });
+  }
+
+  // Update quantities
+  function updateItem(name, price, change) {
+    if (!bill[name]) bill[name] = { qty: 0, price };
+    bill[name].qty += change;
+    if (bill[name].qty <= 0) delete bill[name];
+    document.getElementById(`qty-${name.replace(/\s+/g, '')}`).textContent = bill[name]?.qty || 0;
+    renderBill();
+  }
+
+  // Render Bill
+function renderBill() {
+  const billList = document.getElementById('billList');
+  billList.innerHTML = '';
+  let total = 0;
+
+  Object.entries(bill).forEach(([item, data]) => {
+    const amount = data.qty * data.price;
+    total += amount;
+    billList.innerHTML += `
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        ${item} × ${data.qty}
+        <span>₹${amount}</span>
+      </li>`;
+  });
+
+  const parcelCheckbox = document.getElementById('addParcel');
+  if (parcelCheckbox.checked && Object.keys(bill).length > 0) {
+    total += parcelCharge;
+    billList.innerHTML += `
+      <li class="list-group-item d-flex justify-content-between">
+        <strong>Parcel</strong><span>₹${parcelCharge}</span>
+      </li>`;
+  }
+
+  document.getElementById('totalAmount').textContent = '₹' + total;
+}
+document.getElementById('addParcel').addEventListener('change', renderBill);
+
+  // Reload button
+  document.getElementById('reloadMenu').addEventListener('click', loadMenu);
+
+  // Initial load
+  loadMenu();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
