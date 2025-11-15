@@ -60,7 +60,6 @@
 
   <h3 class="text-center mb-4">Food Stall Billing</h3>
 
-  <!-- Tabs -->
   <ul class="nav nav-tabs mb-3" id="menuTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="breakfast-tab" data-bs-toggle="tab" data-bs-target="#breakfast" type="button" role="tab">Breakfast</button>
@@ -71,17 +70,221 @@
   </ul>
 
   <div class="row">
-    <!-- Menu Section -->
     <div class="col-lg-8 tab-content" data-bs-spy="scroll" id="menuTabContent">
       <div class="tab-pane fade show active" id="breakfast" role="tabpanel">
-        <div class="row" id="breakfastMenu"></div>
+        <div class="row" id="breakfastMenu">
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://images.news18.com/ibnlive/uploads/2021/03/1614664667_untitled-design-3-825x510.jpg" class="menu-img rounded-3" alt="Tea">
+              <h6>Tea</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Tea', 10, -1)">−</button>
+                <span id="qty-Tea">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Tea', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://png.pngtree.com/png-clipart/20230816/ourmid/pngtree-black-tea-or-sulaimani-png-image_9183716.png" class="menu-img rounded-3" alt="Black Tea">
+              <h6>Black Tea</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Black Tea', 10, -1)">−</button>
+                <span id="qty-BlackTea">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Black Tea', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://www.thecaffeinebaar.com/cdn/shop/articles/Filter_1500x.jpg?v=1636717220" class="menu-img rounded-3" alt="Coffee">
+              <h6>Coffee</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Coffee', 10, -1)">−</button>
+                <span id="qty-Coffee">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Coffee', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://m.media-amazon.com/images/I/61yF9-vVCaL.jpg" class="menu-img rounded-3" alt="Black Coffee">
+              <h6>Black Coffee</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Black Coffee', 10, -1)">−</button>
+                <span id="qty-BlackCoffee">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Black Coffee', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://vaya.in/recipes/wp-content/uploads/2019/01/Rice-Puttu.jpg" class="menu-img rounded-3" alt="Puttu">
+              <h6>Puttu</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Puttu', 10, -1)">−</button>
+                <span id="qty-Puttu">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Puttu', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://kkfoodproducts.com/cdn/shop/articles/palappam.jpg?v=1740691818&width=1103" class="menu-img rounded-3" alt="Appam">
+              <h6>Appam</h6>
+              <p>₹10</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Appam', 10, -1)">−</button>
+                <span id="qty-Appam">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Appam', 10, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://moonrice.net/wp-content/uploads/2022/01/ButteryFlakyMalabarParottaSquare-500x500.jpg" class="menu-img rounded-3" alt="Parotta">
+              <h6>Parotta</h6>
+              <p>₹15</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Parotta', 15, -1)">−</button>
+                <span id="qty-Parotta">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Parotta', 15, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://i.ytimg.com/vi/fRw8h48UY2Y/hqdefault.jpg" class="menu-img rounded-3" alt="Poola">
+              <h6>Poola</h6>
+              <p>₹30</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Poola', 30, -1)">−</button>
+                <span id="qty-Poola">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Poola', 30, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://myheartbeets.com/wp-content/uploads/2017/10/brown-chickpeas-indian-curry-instant-pot-500x500.jpg" class="menu-img rounded-3" alt="Vegetable Curry">
+              <h6>Vegetable Curry</h6>
+              <p>₹35</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Vegetable Curry', 35, -1)">−</button>
+                <span id="qty-VegetableCurry">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Vegetable Curry', 35, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://somethingiscookingdotcom.files.wordpress.com/2015/06/ayala-fish-curry.jpg" class="menu-img rounded-3" alt="Fish Curry">
+              <h6>Fish Curry</h6>
+              <p>₹35</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Fish Curry', 35, -1)">−</button>
+                <span id="qty-FishCurry">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Fish Curry', 35, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://myheartbeets.com/wp-content/uploads/2018/04/nadan-mutta-egg-roast-pressure-cooker.jpg" class="menu-img rounded-3" alt="Egg Roast">
+              <h6>Egg Roast</h6>
+              <p>₹35</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Egg Roast', 35, -1)">−</button>
+                <span id="qty-EggRoast">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Egg Roast', 35, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://i.ytimg.com/vi/Dy2GpHaHOOE/sddefault.jpg" class="menu-img rounded-3" alt="Parts">
+              <h6>Parts</h6>
+              <p>₹40</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Parts', 40, -1)">−</button>
+                <span id="qty-Parts">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Parts', 40, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="tab-pane fade" id="lunch" role="tabpanel">
-        <div class="row" id="lunchMenu"></div>
+        <div class="row" id="lunchMenu">
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://content3.jdmagicbox.com/v2/comp/ernakulam/k1/0484px484.x484.220701204924.i3k1/catalogue/sree-badhra-nadan-bakshanashala-pattimattom-ernakulam-restaurants-TqbKpr2AWw.jpg" class="menu-img rounded-3" alt="Meals">
+              <h6>Meals</h6>
+              <p>₹50</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Meals', 50, -1)">−</button>
+                <span id="qty-Meals">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Meals', 50, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://5.imimg.com/data5/OI/NA/GLADMIN-54787984/mackerel-large-ayala-fish-500x500.png" class="menu-img rounded-3" alt="Fish 1">
+              <h6>Fish 1</h6>
+              <p>₹40</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Fish 1', 40, -1)">−</button>
+                <span id="qty-Fish1">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Fish 1', 40, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://qph.cf2.quoracdn.net/main-qimg-6839e0a44152740b67ed089127e3df8a-lq" class="menu-img rounded-3" alt="Fish 2">
+              <h6>Fish 2</h6>
+              <p>₹50</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Fish 2', 50, -1)">−</button>
+                <span id="qty-Fish2">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Fish 2', 50, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://5.imimg.com/data5/QF/HO/MY-8317209/mathi-fish-500x500.jpg" class="menu-img rounded-3" alt="Fish 3">
+              <h6>Fish 3</h6>
+              <p>₹60</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Fish 3', 60, -1)">−</button>
+                <span id="qty-Fish3">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Fish 3', 60, 1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-2 col-6 mb-3">
+            <div class="card p-lg-2 p-0 text-center h-100">
+              <img src="https://samudrafresh.com/wp-content/uploads/2019/09/neymeen.png" class="menu-img rounded-3" alt="Fish 4">
+              <h6>Fish 4</h6>
+              <p>₹50</p>
+              <div class="quantity-controls d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('Fish 4', 50, -1)">−</button>
+                <span id="qty-Fish4">0</span>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('Fish 4', 50, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Bill Section -->
     <div class="col-lg-4 h-100" id="billSection">
       <div id="billPrintArea">
         <div class="print-header pb-1">
@@ -93,14 +296,10 @@
           <span>Item</span><span>Amount</span>
         </div>
         <ul class="list-group mb-2" id="billList"></ul>
-        <!-- <div class="print-header pb-1"> -->
-
-          <div class="d-flex justify-content-between fs-6">
+        <div class="d-flex justify-content-between fs-6">
             <strong>Total:</strong>
             <span id="totalAmount" class="h5">₹0</span>
           </div>
-        <!-- </div> -->
-
         <div class="form-check mt-2 mb-2">
           <input class="form-check-input" type="checkbox" id="addParcel">
           <label class="form-check-label" for="addParcel">Add Parcel (₹5)</label>
@@ -121,44 +320,44 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const parcelCharge = 5;
-    let menuData = {};
     let bill = {};
 
-    // Load menu
-    fetch('./menu.json')
-      .then(res => res.json())
-      .then(data => {
-        menuData = data;
-        renderMenu('breakfast', data.breakfast);
-        renderMenu('lunch', data.lunch);
-      })
-      .catch(err => console.error("Error loading menu.json", err));
+    // --- Menu data is now INLINE in the JavaScript object, replacing the separate menu.json file ---
+    const menuData = {
+      "breakfast": {
+        "Tea": { "price": 10, "image": "https://images.news18.com/ibnlive/uploads/2021/03/1614664667_untitled-design-3-825x510.jpg" },
+        "Black Tea": { "price": 10, "image": "https://png.pngtree.com/png-clipart/20230816/ourmid/pngtree-black-tea-or-sulaimani-png-image_9183716.png" },
+        "Coffee": { "price": 10, "image": "https://www.thecaffeinebaar.com/cdn/shop/articles/Filter_1500x.jpg?v=1636717220" },
+        "Black Coffee": { "price": 10, "image": "https://m.media-amazon.com/images/I/61yF9-vVCaL.jpg" },
+        "Puttu": { "price": 10, "image": "https://vaya.in/recipes/wp-content/uploads/2019/01/Rice-Puttu.jpg" },
+        "Appam": { "price": 10, "image": "https://kkfoodproducts.com/cdn/shop/articles/palappam.jpg?v=1740691818&width=1103" },
+        "Parotta": { "price": 15, "image": "https://moonrice.net/wp-content/uploads/2022/01/ButteryFlakyMalabarParottaSquare-500x500.jpg" },
+        "Poola": { "price": 30, "image": "https://i.ytimg.com/vi/fRw8h48UY2Y/hqdefault.jpg" },
+        "Vegetable Curry": { "price": 35, "image": "https://myheartbeets.com/wp-content/uploads/2017/10/brown-chickpeas-indian-curry-instant-pot-500x500.jpg" },
+        "Fish Curry": { "price": 35, "image": "https://somethingiscookingdotcom.files.wordpress.com/2015/06/ayala-fish-curry.jpg" },
+        "Egg Roast": { "price": 35, "image": "https://myheartbeets.com/wp-content/uploads/2018/04/nadan-mutta-egg-roast-pressure-cooker.jpg" },
+        "Parts": { "price": 40, "image": "https://i.ytimg.com/vi/Dy2GpHaHOOE/sddefault.jpg" }
+      },
+      "lunch": {
+        "Meals": { "price": 50, "image": "https://content3.jdmagicbox.com/v2/comp/ernakulam/k1/0484px484.x484.220701204924.i3k1/catalogue/sree-badhra-nadan-bakshanashala-pattimattom-ernakulam-restaurants-TqbKpr2AWw.jpg" },
+        "Fish 1": { "price": 40, "image": "https://5.imimg.com/data5/OI/NA/GLADMIN-54787984/mackerel-large-ayala-fish-500x500.png" },
+        "Fish 2": { "price": 50, "image": "https://qph.cf2.quoracdn.net/main-qimg-6839e0a44152740b67ed089127e3df8a-lq" },
+        "Fish 3": { "price": 60, "image": "https://5.imimg.com/data5/QF/HO/MY-8317209/mathi-fish-500x500.jpg" },
+        "Fish 4": { "price": 50, "image": "https://samudrafresh.com/wp-content/uploads/2019/09/neymeen.png" }
+      }
+    };
+    // The previous renderMenu function is now irrelevant as the HTML is static.
+    // The previous fetch call is removed.
 
-    function renderMenu(category, items) {
-      const menuContainer = document.getElementById(category + 'Menu');
-      menuContainer.innerHTML = '';
-      Object.entries(items).forEach(([name, info]) => {
-        const div = document.createElement('div');
-        div.className = 'col-md-4 col-lg-4 col-sm-2 col-6 mb-3';
-        div.innerHTML = `
-          <div class="card p-lg-2 p-0 text-center h-100">
-            <img src="${info.image}" class="menu-img rounded-3" alt="${name}">
-            <h6>${name}</h6>
-            <p>₹${info.price}</p>
-            <div class="quantity-controls d-flex justify-content-center align-items-center">
-              <button class="btn btn-sm btn-outline-primary me-2" onclick="updateBill('${name}', ${info.price}, -1)">−</button>
-              <span id="qty-${name.replace(/\s+/g, '')}">0</span>
-              <button class="btn btn-sm btn-outline-primary ms-2" onclick="updateBill('${name}', ${info.price}, 1)">+</button>
-            </div>
-          </div>`;
-        menuContainer.appendChild(div);
-      });
-    }
 
     function updateBill(item, price, change) {
       if (!bill[item]) bill[item] = { qty: 0, price };
       bill[item].qty += change;
-      if (bill[item].qty <= 0) delete bill[item];
+      if (bill[item].qty <= 0) {
+          delete bill[item];
+      }
+      // Note: The qty span ID is now dynamically constructed using simple name replacement,
+      // which works because the static HTML uses the same logic for the ID.
       document.getElementById(`qty-${item.replace(/\s+/g, '')}`).textContent = bill[item]?.qty || 0;
       renderBill();
     }
@@ -194,8 +393,17 @@
     document.getElementById('addParcel').addEventListener('change', renderBill);
 
     document.getElementById('clearBill').addEventListener('click', () => {
+      // Clear the bill object
       bill = {};
-      document.querySelectorAll('[id^="qty-"]').forEach(q => q.textContent = 0);
+      
+      // Reset all quantity displays to 0 based on the menuData structure
+      Object.keys(menuData.breakfast).forEach(item => {
+          document.getElementById(`qty-${item.replace(/\s+/g, '')}`).textContent = 0;
+      });
+      Object.keys(menuData.lunch).forEach(item => {
+          document.getElementById(`qty-${item.replace(/\s+/g, '')}`).textContent = 0;
+      });
+      
       renderBill();
     });
 
